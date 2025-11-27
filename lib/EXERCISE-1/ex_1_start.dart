@@ -12,11 +12,26 @@ void main() {
           child: ListView(
             children: [
               Label("Method 1: Loop in Array", bold: true),
-              // TODO
+
+              // Integrating the Loop Directly into the List
+
+              Text("Start"),
+              for (var c in colors) Text(c),
+              Text("End"),
+
+              SizedBox(height: 20),
               Label("Method 2: Map", bold: true),
-              // TODO
-              Label("Method 23: Dedicated Function", bold: true),
-              // TODO
+              // Using map()
+              Text("Start"),
+              ...colors.map((c) => Text(c)),
+              Text("End"),
+
+              SizedBox(height: 20),
+              Label("Method 3: Dedicated Function", bold: true),
+              // Using a dedicated function
+              Text("Start"),
+              ...generateColorWidgets(),
+              Text("End"),
             ],
           ),
         ),
@@ -40,4 +55,9 @@ class Label extends StatelessWidget {
       ),
     );
   }
+}
+
+// Dedicated function for Method 3
+List<Widget> generateColorWidgets() {
+  return colors.map((c) => Text(c)).toList();
 }
