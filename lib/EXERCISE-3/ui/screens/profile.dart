@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-
 import '../theme/theme.dart';
+import '../../model/profile_tile_model.dart'; 
 
 class ProfileApp extends StatelessWidget {
-  const ProfileApp({super.key});
+  final ProfileData profile;       
+
+  const ProfileApp({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {
@@ -22,37 +24,43 @@ class ProfileApp extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SizedBox(height: 40),
-            const CircleAvatar(
+
+            // Dynamic Avatar
+            CircleAvatar(
               radius: 60,
-              backgroundImage: AssetImage(
-                  'assets/images/w8/aang.png'), 
+              backgroundImage: AssetImage(profile.avatarUrl),
             ),
+
             const SizedBox(height: 20),
+
+            // Dynamic Name
             Text(
-              'Ronan OGOR',
+              profile.name,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: AppColors.primary,
               ),
             ),
-            const Text(
-              'Flutter Developer',
-              style: TextStyle(
+
+            // Dynamic Position
+            Text(
+              profile.position,
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
               ),
             ),
+
             const SizedBox(height: 20),
-            const ProfileTile(
-              icon: Icons.phone,
-              title: "Phone Number",
-              data: "+123 456 7890",
-            ),
-             const ProfileTile(
-              icon: Icons.location_on,
-              title: "Address",
-              data: "Cambodia",
+
+            // Tiles
+            ...profile.tiles.map(
+              (tile) => ProfileTile(
+                icon: tile.icon,
+                title: tile.title,
+                data: tile.value,
+              ),
             ),
           ],
         ),
